@@ -16,7 +16,7 @@
 * [Papernot, N., McDaniel, P., Swami, A., & Harang, R. (2016, November). Crafting adversarial input sequences for recurrent neural networks. In Military Communications Conference, MILCOM 2016-2016 IEEE (pp. 49-54). IEEE.](https://arxiv.org/pdf/1604.08275.pdf)
 * [Deceiving Google’s Perspective API Built for
 Detecting Toxic Comments](https://arxiv.org/pdf/1702.08138.pdf)
-* [Towards Crafting Text Adversarial Samples](Towards Crafting Text Adversarial Samples)
+* [Towards Crafting Text Adversarial Samples](https://arxiv.org/pdf/1707.02812.pdf)
 * [Deep Text Classification Can be Fooled](https://arxiv.org/pdf/1704.08006.pdf)
 
 ### Model for Sentiment Analysis
