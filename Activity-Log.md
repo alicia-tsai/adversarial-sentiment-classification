@@ -50,4 +50,4 @@ Detecting Toxic Comments](https://arxiv.org/pdf/1702.08138.pdf)
 ## TODO
 * Research question, data collection, related work (adversarial learning), Experiment (@Erica)
 * Related work (adversarial learning for NLP x5), Experiment (@Alicia)
-* Related work (adversarial learning for NLP x2), Evaluation, Experiment, Future work (@Tobey)
+* Related work (adversarial learning for NLP x3), Evaluation, Experiment, Future work (@Tobey)
