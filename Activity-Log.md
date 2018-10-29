@@ -19,6 +19,7 @@
 Detecting Toxic Comments](https://arxiv.org/pdf/1702.08138.pdf)
 * [Towards Crafting Text Adversarial Samples](https://arxiv.org/pdf/1707.02812.pdf)
 * [Deep Text Classification Can be Fooled](https://arxiv.org/pdf/1704.08006.pdf)
+* [Generating Natural Language Adversarial Examples](https://arxiv.org/pdf/1804.07998.pdf)
 
 ### Model for Sentiment Analysis
 * [Yoon Kim. Convolutional neural networks for sentence classification. In Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP), 2014.](http://www.aclweb.org/anthology/D14-1181)
@@ -47,6 +48,6 @@ Detecting Toxic Comments](https://arxiv.org/pdf/1702.08138.pdf)
   * Counterfactual error: some fact in the sentence is incorrect after word replacement
 
 ## TODO
-* Research question, data collection, related work (adversarial learning), Experiment
-* Related work (adversarial learning for NLP x5), Experiment
-* Related work (adversarial learning for NLP x2), Evaluation, Experiment, Future work
+* Research question, data collection, related work (adversarial learning), Experiment (@Erica)
+* Related work (adversarial learning for NLP x5), Experiment (@Alicia)
+* Related work (adversarial learning for NLP x2), Evaluation, Experiment, Future work (@Tobey)
