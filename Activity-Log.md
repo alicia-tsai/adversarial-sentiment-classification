@@ -45,4 +45,8 @@ Detecting Toxic Comments](https://arxiv.org/pdf/1702.08138.pdf)
   * Syntactic error: word replacement incur grammatical error
   * Semantic error: meaning of the sentence change after word replacement
   * Counterfactual error: some fact in the sentence is incorrect after word replacement
-  
+
+## TODO
+* Research question, data collection, related work (adversarial learning), Experiment
+* Related work (adversarial learning for NLP x5), Experiment
+* Related work (adversarial learning for NLP x2), Evaluation, Experiment, Future work
