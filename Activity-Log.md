@@ -1,6 +1,7 @@
 ## Dataset
 * [Large Movie Review Dataset](http://ai.stanford.edu/~amaas/data/sentiment/)
 * Source: using torchtext imdb implementation
+* Downsampled to 2500 examples - training and validation 1250 each.
 
 ## Related Works
 ### Adversarial Learning
@@ -20,8 +21,6 @@ Detecting Toxic Comments](https://arxiv.org/pdf/1702.08138.pdf)
 * [Deep Text Classification Can be Fooled](https://arxiv.org/pdf/1704.08006.pdf)
 
 ### Model for Sentiment Analysis
-* [Xiang Zhang, Junbo Zhao, and Yann LeCun. Character-level convolutional networks for text classification.
-In Advances in Neural Information Processing Systems, pp. 649–657, 2015.](https://www.aclweb.org/anthology/P12-2018)
 * [Yoon Kim. Convolutional neural networks for sentence classification. In Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP), 2014.](http://www.aclweb.org/anthology/D14-1181)
 * [Sepp Hochreiter and Jurgen Schmidhuber. Long short-term memory. ¨ Neural computation, 9(8):1735–1780, 1997.](https://www.bioinf.jku.at/publications/older/2604.pdf)
 
@@ -46,3 +45,4 @@ In Advances in Neural Information Processing Systems, pp. 649–657, 2015.](http
   * Syntactic error: word replacement incur grammatical error
   * Semantic error: meaning of the sentence change after word replacement
   * Counterfactual error: some fact in the sentence is incorrect after word replacement
+  
