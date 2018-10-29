@@ -2,7 +2,6 @@
 * [Large Movie Review Dataset](http://ai.stanford.edu/~amaas/data/sentiment/)
 * Source: using torchtext imdb implementation
 
----
 ## Related Works
 ### Adversarial Learning
 * [Ian J Goodfellow, Jonathon Shlens, and Christian Szegedy. Explaining and harnessing adversarial examples. arXiv preprint arXiv:1412.6572, 2014.](https://arxiv.org/pdf/1412.6572.pdf)
@@ -26,13 +25,12 @@ In Advances in Neural Information Processing Systems, pp. 649–657, 2015.](http
 * [Yoon Kim. Convolutional neural networks for sentence classification. In Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP), 2014.](http://www.aclweb.org/anthology/D14-1181)
 * [Sepp Hochreiter and Jurgen Schmidhuber. Long short-term memory. ¨ Neural computation, 9(8):1735–1780, 1997.](https://www.bioinf.jku.at/publications/older/2604.pdf)
 
----
 ## Experiment
 * Naive Bayes
 * CNN
 * Bidirectional RNN
 * Bidirectional LSTM
----
+
 ## Evaluation
 ### Classifier Evaluation
 * Accuracy, precision, recall
