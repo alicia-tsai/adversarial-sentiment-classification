@@ -11,6 +11,7 @@
 * [Christian Szegedy, Wojciech Zaremba, Ilya Sutskever, Joan Bruna, Dumitru Erhan, Ian Goodfellow, and Rob Fergus. Intriguing properties of neural networks. In ICLR 2014, 2014.](https://arxiv.org/pdf/1312.6199.pdf)
 
 ### Adversarial Learning for NLP
+* Yonatan Belinkov and Yonatan Bisk. 2018. Synthetic and natural noise both break neural machine transla- tion. In Proceedings of ICLR.
 * [Adversarial Examples for Natural Language Classification Problems](https://openreview.net/forum?id=r1QZ3zbAZ)
 * [HotFlip: White-Box Adversarial Examples for Text Classification](http://aclweb.org/anthology/P18-2006)
 * [Adversarial Examples for Evaluating Reading Comprehension Systems](https://www.aclweb.org/anthology/D17-1215)
@@ -47,7 +48,7 @@ Detecting Toxic Comments](https://arxiv.org/pdf/1702.08138.pdf)
   * Semantic error: meaning of the sentence change after word replacement
   * Counterfactual error: some fact in the sentence is incorrect after word replacement
 
-## TODO
+## TODO - Midterm Report
 * Research question, data collection, related work (adversarial learning), Experiment (@Erica)
 * Related work (adversarial learning for NLP x5), Experiment (@Alicia)
 * Related work (adversarial learning for NLP x3), Evaluation, Experiment, Future work (@Tobey)
