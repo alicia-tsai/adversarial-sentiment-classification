@@ -15,6 +15,7 @@ from torchtext import data
 from torchtext import datasets
 import torch
 
+
 SEED = 1
 torch.manual_seed(SEED)
 torch.cuda.manual_seed(SEED)
@@ -28,10 +29,14 @@ class DataLoader:
         self.TEXT = data.Field(tokenize='spacy', lower=True)
         self.LABEL = data.Field(dtype=torch.float)
         
-        # make splits for data (smaller subsets)
+        # make splits for data
         print('loading data...')
         self.train_data, self.test_data = datasets.IMDB.splits(self.TEXT, self.LABEL)
-    
+
+        # smaller subsets
+        self.small_train = None
+        self.small_valid = None
+
     def small_train_valid(self):
         print('splitting data...')
         # only use 2500 examples
@@ -43,5 +48,19 @@ class DataLoader:
         print('building vocabulary...')
         self.TEXT.build_vocab(train, vectors="glove.6B.100d")
         self.LABEL.build_vocab(train)
+
+        # store smaller subsets
+        self.small_train, self.small_valid = train, valid
         
         return train, valid
+
+    def small_train_valid_iter(self, batch_size=64, device=None):
+        if not device:
+            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+        if not (self.small_train and self.small_valid):
+            self.small_train_valid()
+        # make iterator for splits
+        train_iter, valid_iter = data.BucketIterator.splits((self.small_train, self.small_valid), batch_size=batch_size, device=device)
+
+        return train_iter, valid_iter
