@@ -2,6 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import torch.nn.functional as F
 
 from data_loader import DataLoader
 
@@ -22,7 +23,7 @@ class CNN(nn.Module):
         Co = kernel_num
         Ks = kernel_sizes
 
-        self.embed = nn.Embedding(V, D)
+        self.embedding = nn.Embedding(V, D)
         self.convs1 = nn.ModuleList([nn.Conv2d(Ci, Co, (K, D)) for K in Ks])
         self.dropout = nn.Dropout(drop_out)
         self.fc1 = nn.Linear(len(Ks) * Co, C)
@@ -33,7 +34,7 @@ class CNN(nn.Module):
         return x
 
     def forward(self, x):
-        x = self.embed(x)  # (N, W, D)
+        x = self.embedding(x)  # (N, W, D)
         x = x.unsqueeze(1)  # (N, Ci, W, D)
         x = [F.relu(conv(x)).squeeze(3) for conv in self.convs1]  # [(N, Co, W), ...]*len(Ks)
         x = [F.max_pool1d(i, i.size(2)).squeeze(2) for i in x]  # [(N, Co), ...]*len(Ks)
@@ -88,7 +89,6 @@ class SentimentClassifier:
 
     def __init__(self, train_iter, valid_iter, model, device=None):
         """
-
         :param train_iter: training data iterator
         :param valid_iter: validation data iterator
         :param model: model to be trained
@@ -120,7 +120,10 @@ class SentimentClassifier:
 
         for batch_data in self.train_iter:
             self.optimizer.zero_grad()  # clear out gradient
-            pred = self.model(batch_data.text).squeeze(1)
+            if type(self.model) is CNN:
+                pred = self.model(batch_data.text.t_()).squeeze(1)
+            else:
+                pred = self.model(batch_data.text).squeeze(1)
             y = (batch_data.label.squeeze(0) >= 3).float()  # neg:2, pos:3 -> convert them to 0 and 1
             loss = self.loss_function(pred, y)
             acc = self.accuracy(pred, y)
@@ -145,7 +148,10 @@ class SentimentClassifier:
 
         with torch.no_grad():
             for batch_data in self.valid_iter:
-                pred = self.model(batch_data.text).squeeze(1)
+                if type(self.model) is CNN:
+                    pred = self.model(batch_data.text.t_()).squeeze(1)
+                else:
+                    pred = self.model(batch_data.text).squeeze(1)
                 y = (batch_data.label.squeeze(0) >= 3).float()
                 loss = self.loss_function(pred, y)
                 acc = self.accuracy(pred, y)
@@ -182,11 +188,12 @@ class SentimentClassifier:
 # Train Model
 # ==============
 
-def train_classifier(alg='BiLSTM', data_loader=None, model_config=None, outfile=None, device=None):
+def train_classifier(alg='BiLSTM', data_loader=None, small_subsets=False, model_config=None, outfile=None, device=None):
     """Train classifier and return the trained classifier and its metrics.
 
     :param alg: algorithm to train {'BiRNN', 'BiLSTM', 'CNN'}
     :param data_loader: DataLoader object
+    :param small_subsets: boolean, whether to use smaller subsets of data
     :param model_config: dictionary of model configuration
     :param outfile: outfile to save the trained model
     :param device: GPU device if available
@@ -196,6 +203,10 @@ def train_classifier(alg='BiLSTM', data_loader=None, model_config=None, outfile=
     # load data for training and evaluation
     if not data_loader:
         data_loader = DataLoader()
+    if small_subsets:
+        train_iter, valid_iter = data_loader.small_train_valid_iter()
+    else:
+        train_iter, valid_iter = data_loader.large_train_valid_iter()
 
     # model configuration
     if not model_config:
@@ -226,12 +237,14 @@ def train_classifier(alg='BiLSTM', data_loader=None, model_config=None, outfile=
 
     # replace initial weights of embedding layer with pre-trained embedding
     pretrained_embeddings = data_loader.TEXT.vocab.vectors
-    model.embedding.weight.data.copy_(pretrained_embeddings)
+    model.embedding.weight.from_pretrained(pretrained_embeddings)
+    #model.embedding.weight.data.copy_(pretrained_embeddings)
 
     # train classifier
-    train_iter, valid_iter = data_loader.small_train_valid_iter()
     classifier = SentimentClassifier(train_iter, valid_iter, model)
-    train_epoch_metrics, valid_epoch_metrics = classifier.run_epochs(NUM_EPOCH)
+    print('start training: %s' %alg)
+    print('model config:', model_config.items())
+    train_epoch_metrics, valid_epoch_metrics = classifier.run_epochs(model_config['NUM_EPOCH'])
 
     # save trained model
     if outfile:
@@ -247,18 +260,24 @@ def train_classifier(alg='BiLSTM', data_loader=None, model_config=None, outfile=
 # Load Saved Model
 # ===================
 
-def load_saved_model(alg, path, data_loader=None, model_config=None):
+def load_saved_model(alg, path, data_loader=None, small_subsets=False, model_config=None):
     """Load saved model from file.
 
     :param alg: algorithm to initialize, should match the saved model {'BiRNN', 'BiLSTM', 'CNN'}
     :param path: saved model file to load
+    :param small_subsets: boolean, whether to use a smaller subsets of data
     :param data_loader: DataLoader object
     :param model_config: dictionary of model configuration
     :return: loaded model
     """
 
+    # load data and build vocabulary
     if not data_loader:
         data_loader = DataLoader()
+    if small_subsets:
+        data_loader.small_train_valid()
+    else:
+        data_loader.large_train_valid()
 
     if not model_config:
         model_config = dict()
