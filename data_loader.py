@@ -54,7 +54,7 @@ class DataLoader:
         self.small_train = None
         self.small_valid = None
 
-    def build_data(self, save=True, train_outfile='train_data.pt', test_outfile='test_data.pt'):
+    def build_data(self, save=True, train_outfile='dataset/train_data.pt', test_outfile='dataset/test_data.pt'):
         """Build data sets from `torchtext.datasets.IMDB`."""
 
         # set up fields
@@ -75,7 +75,7 @@ class DataLoader:
             with open(test_outfile, 'wb') as file:
                 dill.dump(self.test_data, file)
 
-    def load_data(self, train_outfile='train_data.pt', test_outfile='test_data.pt'):
+    def load_data(self, train_outfile='dataset/train_data.pt', test_outfile='dataset/test_data.pt'):
         """Load training and testing data sets from file."""
         print('loading data...')
         with open(train_outfile, 'rb') as file:

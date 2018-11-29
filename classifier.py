@@ -164,7 +164,7 @@ class SentimentClassifier:
     def run_epochs(self, num_epochs=10, eval_each=1):
         """Run # epochs and evaluate the model.
 
-        Return: average loss and accuracy per epoch for training and validation set.
+        :return: average loss and accuracy per epoch for training and validation set.
         """
         train_epoch_metrics, valid_epoch_metrics = [], []
 
