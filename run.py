@@ -18,7 +18,8 @@ def main():
 
     # build and save data for the first time
     if args.build_data:
-        DataLoader.build_data()
+        data_loader = DataLoader()
+        data_loader.build_data()
 
     # load data from file
     data_loader = DataLoader()
