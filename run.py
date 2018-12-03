@@ -25,7 +25,7 @@ def main():
     data_loader.load_data()
 
     # train model
-    train_classifier(alg=args.alg, small_subets=args.small_subsets, data_loader=data_loader, outfile=args.outfile)
+    train_classifier(alg=args.alg, data_loader=data_loader, small_subsets=args.small_subsets, outfile=args.outfile)
 
 
 if __name__ == '__main__':

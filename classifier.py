@@ -237,8 +237,8 @@ def train_classifier(alg='BiLSTM', data_loader=None, small_subsets=False, model_
 
     # replace initial weights of embedding layer with pre-trained embedding
     pretrained_embeddings = data_loader.TEXT.vocab.vectors
-    model.embedding.weight.from_pretrained(pretrained_embeddings)
-    #model.embedding.weight.data.copy_(pretrained_embeddings)
+    #model.embedding.weight.from_pretrained(pretrained_embeddings)
+    model.embedding.weight.data.copy_(pretrained_embeddings)
 
     # train classifier
     classifier = SentimentClassifier(train_iter, valid_iter, model)
