@@ -18,14 +18,15 @@ def main():
 
     # build and save data for the first time
     if args.build_data:
-        DataLoader.build_data()
+        data_loader = DataLoader()
+        data_loader.build_data()
 
     # load data from file
     data_loader = DataLoader()
     data_loader.load_data()
 
     # train model
-    train_classifier(alg=args.alg, small_subets=args.small_subsets, data_loader=data_loader, outfile=args.outfile)
+    train_classifier(alg=args.alg, data_loader=data_loader, small_subsets=args.small_subsets, outfile=args.outfile)
 
 
 if __name__ == '__main__':
