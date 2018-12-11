@@ -2,7 +2,13 @@ import numpy as np
 from data_loader import DataLoader
 
 from sklearn.feature_extraction.text import CountVectorizer
+import nltk
+from nltk.tokenize import word_tokenize
 
+
+# =======================
+# Calculate perplexity
+# =======================
 
 def make_corpus(torchtext_data):
     corpus = [' '.join(data.text).replace("<br />", "").replace("< br />", "") for data in torchtext_data]
@@ -18,8 +24,8 @@ def get_count_dictionary(data_loader=None):
     train, valid = data_loader.large_train_valid()
     train_corpus = make_corpus(train)
 
-    uni_vectorizer = CountVectorizer(max_features= 20000)
-    bi_vectorizer = CountVectorizer(ngram_range= (2,2), max_features= 20000)
+    uni_vectorizer = CountVectorizer(max_features=20000)
+    bi_vectorizer = CountVectorizer(ngram_range=(2, 2), max_features=20000)
 
     _ = uni_vectorizer.fit(train_corpus)
     _ = bi_vectorizer.fit(train_corpus)
@@ -59,3 +65,18 @@ def calculate_perplexity(text, unigram_dict=None, bigram_dict=None, alpha=0.1, v
     N = len(tokens) - 1
 
     return np.exp(np.sum(probs) / -N)
+
+
+# =========================
+# Part of Speech Tagging
+# =========================
+
+def check_pos(idx1, idx2, data_loader):
+    text1 = word_tokenize(data_loader.TEXT.vocab.itos[idx1])
+    text2 = word_tokenize(data_loader.TEXT.vocab.itos[idx2])
+    if len(text1) > 0 and len(text2) > 0:
+        tag1 = nltk.pos_tag(text1)[0][1]
+        tag2 = nltk.pos_tag(text2)[0][1]
+        return tag1 == tag2
+    else:
+        return False
