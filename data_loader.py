@@ -60,7 +60,7 @@ class DataLoader:
         # set up fields
         self.TEXT = data.Field(tokenize='spacy', lower=True)
         # self.TEXT = data.Field(lower=True)
-        self.LABEL = data.Field(dtype=torch.float)
+        self.LABEL = data.Field()
 
         # load data from `torchtext.datasets`
         # 25,000 examples for train_data, test_data respectively
